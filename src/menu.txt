@@ -1,0 +1,7 @@
+Shopska salad,9lv,starters
+Kebapche,2lv,main
+Meatball,2.5lv,main
+Chicken wings,8lv,main
+Coke,3lv,drinks
+Ayran,2lv,drinks
+Water,1lv,drinks
