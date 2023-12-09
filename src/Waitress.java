@@ -12,59 +12,87 @@ public class Waitress {
     Tables[] tables;
     Path path = Paths.get("src/menu.txt");
 
+    boolean keepGoing = true;
+
     public void work() throws IOException {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Please enter the number of the task you want to do: See the menu(1); " +
-                "Change the menu(2); " +
-                "Take an order(3) ");
-        int numbersWaitress = sc.nextInt();
-        switch (numbersWaitress) {
-            case 1:
-                System.out.println("Please enter the number of the type you want to see: Starters(1); Main course(2); Deserts(3); Drinks(4)");
-                int numsTypes = sc.nextInt();
-                switch (numsTypes) {
-                    case 1:
-                        showStarters();
-                        break;
-                    case 2:
-                        showMainCourse();
-                        break;
-                    case 3:
-                        showDeserts();
-                        break;
-                    case 4:
-                        showDrinks();
-                        break;
-                }
-            case 2:
-                System.out.println("Please enter the number of the task you want to do: Add element(1); Remove element(2)");
-                int numsAddRemove = sc.nextInt();
-                switch (numsAddRemove) {
-                    case 1:
-                        System.out.println("Please enter the dish,price,type of the dish you want to add: ");
-                        addToMenu();
-                    case 2:
-                        System.out.println("Please enter the name of the dish you want to remove from the menu: ");
-                        removeFromMenu();
-                }
-            case 3:
-                System.out.println("Please enter the quantity of tables you serve: ");
-                numtables = sc.nextInt();
-                Tables[] tables = new Tables[numtables];
-
-                for (int i = 0; i < tables.length; i++) {
-                    Tables table = new Tables();
-
-                    tables[i] = table;
-                }
-                for (int i = 0; i < tables.length; i++) {
-                    if (tables[i].tableStatus == TableStatus.FREE) {
-                        tables[i].takeOrder();
-                        break;
-                    } else {
-                        System.out.println("There is no free tables!");
+        tables = createTables();
+        do {
+            System.out.println("Please enter the number of the task you want to do: See the menu(1); " +
+                    "Change the menu(2); " +
+                    "Take an order(3) ");
+            int numbersWaitress = sc.nextInt();
+            switch (numbersWaitress) {
+                case 1:
+                    System.out.println("Please enter the number of the type you want to see: Starters(1); Main course(2); Deserts(3); Drinks(4)");
+                    int numsTypes = sc.nextInt();
+                    switch (numsTypes) {
+                        case 1:
+                            showStarters();
+                            break;
+                        case 2:
+                            showMainCourse();
+                            break;
+                        case 3:
+                            showDeserts();
+                            break;
+                        case 4:
+                            showDrinks();
+                            break;
                     }
-                }
+                    break;
+                case 2:
+                    System.out.println("Please enter the number of the task you want to do: Add element(1); Remove element(2)");
+                    int numsAddRemove = sc.nextInt();
+                    switch (numsAddRemove) {
+                        case 1:
+                            System.out.println("Please enter the dish,price,type of the dish you want to add: ");
+                            addToMenu();
+                            break;
+                        case 2:
+                            System.out.println("Please enter the name of the dish you want to remove from the menu: ");
+                            removeFromMenu();
+                            break;
+                    }
+                    break;
+                case 3:
+                    checkForFree(tables);
+                    break;
+            }
+            keepGoing = goOn();
+        }
+        while (keepGoing == true);
+    }
+
+    private boolean goOn() {
+        System.out.println("Do you want to keep going?");
+        String answerGoOn = sc.next();
+        if (answerGoOn.equalsIgnoreCase("no")) {
+            keepGoing = false;
+        }
+        return keepGoing;
+    }
+
+    private Tables[] createTables() {
+        System.out.println("Please enter the quantity of tables you serve: ");
+        numtables = sc.nextInt();
+        Tables[] tables = new Tables[numtables];
+
+        for (int i = 0; i < tables.length; i++) {
+            Tables table = new Tables(i + 1);
+            tables[i] = table;
+            System.out.println(table.tableNumber);
+        }
+        return tables;
+    }
+
+    private void checkForFree(Tables[] tables) {
+        for (int i = 0; i < tables.length; i++) {
+            if (tables[i].tableStatus == TableStatus.FREE) {
+                tables[i].takeOrder();
+                break;
+            } else {
+                System.out.println("There is no free tables!");
+            }
         }
     }
 
