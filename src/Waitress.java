@@ -7,7 +7,9 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Waitress {
-    Orders[]orders;
+    Scanner sc=new Scanner(System.in);
+    int numtabels;
+    Tables[] tabels=new Tables[numtabels];
     Path path = Paths.get("src/menu.txt");
 
 
@@ -47,6 +49,16 @@ public class Waitress {
                         removeFromMenu();
                 }
             case 3:
+                System.out.println("Please enter the quantity of tables you serve: ");
+                numtabels=sc.nextInt();
+                for (int i = 0; i < tabels.length; i++) {
+                    if (i<numtabels) {
+                        tabels[i].takeOrder();
+                        break;
+                    }else {
+                        System.out.println("There is no free tables!");
+                    }
+                }
         }
     }
     private void addToMenu(){

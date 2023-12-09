@@ -1,6 +1,6 @@
 public abstract class Restaurant {
     Waitress waitress;
     Chef chef;
-    Tables[]tables;
-
+    int tableNumber;
+    Tables[]tables=new Tables[tableNumber];
 }

@@ -8,6 +8,7 @@ public class Tables {
     int tableNumber;
     TableStatus tableStatus = TableStatus.FREE;
 
+
     public void takeOrder() {
         Scanner sc = new Scanner(System.in);
         String answer;
