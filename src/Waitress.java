@@ -7,11 +7,10 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Waitress {
-    Scanner sc=new Scanner(System.in);
-    int numtabels;
-    Tables[] tabels=new Tables[numtabels];
+    Scanner sc = new Scanner(System.in);
+    int numtables;
+    Tables[] tables;
     Path path = Paths.get("src/menu.txt");
-
 
     public void work() throws IOException {
         Scanner sc = new Scanner(System.in);
@@ -50,20 +49,28 @@ public class Waitress {
                 }
             case 3:
                 System.out.println("Please enter the quantity of tables you serve: ");
-                numtabels=sc.nextInt();
-                for (int i = 0; i < tabels.length; i++) {
-                    if (i<numtabels) {
-                        tabels[i].takeOrder();
+                numtables = sc.nextInt();
+                Tables[] tables = new Tables[numtables];
+
+                for (int i = 0; i < tables.length; i++) {
+                    Tables table = new Tables();
+
+                    tables[i] = table;
+                }
+                for (int i = 0; i < tables.length; i++) {
+                    if (tables[i].tableStatus == TableStatus.FREE) {
+                        tables[i].takeOrder();
                         break;
-                    }else {
+                    } else {
                         System.out.println("There is no free tables!");
                     }
                 }
         }
     }
-    private void addToMenu(){
-        Scanner sc=new Scanner(System.in);
-        String addedDish=sc.next();
+
+    private void addToMenu() {
+        Scanner sc = new Scanner(System.in);
+        String addedDish = sc.next();
         try {
             FileWriter fileWriter = new FileWriter(path.toFile(), true);
 
@@ -80,9 +87,10 @@ public class Waitress {
             e.printStackTrace();
         }
     }
+
     private void removeFromMenu() throws IOException {
-        Scanner sc=new Scanner(System.in);
-        String elementToRemove=sc.next();
+        Scanner sc = new Scanner(System.in);
+        String elementToRemove = sc.next();
         List<String> lines = Files.readAllLines(path);
 
         List<String> updatedLines = lines.stream()
@@ -90,7 +98,8 @@ public class Waitress {
                 .collect(Collectors.toList());
         Files.write(path, updatedLines);
     }
-    private void showStarters(){
+
+    private void showStarters() {
         try {
             Files.lines(path)
                     .filter(line -> line.contains("starters"))
@@ -99,7 +108,8 @@ public class Waitress {
             System.err.println("Error reading the file: " + e.getMessage());
         }
     }
-    private void showMainCourse(){
+
+    private void showMainCourse() {
         try {
             Files.lines(path)
                     .filter(line -> line.contains("main"))
@@ -108,7 +118,8 @@ public class Waitress {
             System.err.println("Error reading the file: " + e.getMessage());
         }
     }
-    private void showDeserts(){
+
+    private void showDeserts() {
         try {
             Files.lines(path)
                     .filter(line -> line.contains("deserts"))
@@ -117,7 +128,8 @@ public class Waitress {
             System.err.println("Error reading the file: " + e.getMessage());
         }
     }
-    private void showDrinks(){
+
+    private void showDrinks() {
         try {
             Files.lines(path)
                     .filter(line -> line.contains("drinks"))
