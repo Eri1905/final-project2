@@ -13,7 +13,9 @@ public class Waitress {
 
     public void work() throws IOException {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Please enter the number of the task you want to do: See the menu(1); Change the menu(2); ");
+        System.out.println("Please enter the number of the task you want to do: See the menu(1); " +
+                "Change the menu(2); " +
+                "Take an order(3) ");
         int numbersWaitress = sc.nextInt();
         switch (numbersWaitress) {
             case 1:
@@ -44,6 +46,7 @@ public class Waitress {
                         System.out.println("Please enter the name of the dish you want to remove from the menu: ");
                         removeFromMenu();
                 }
+            case 3:
         }
     }
     private void addToMenu(){
