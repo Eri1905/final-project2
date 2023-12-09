@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Order {
      LocalDateTime creationDateTime;
-     static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+     static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
     OrderStatus orderStatus;
     ArrayList<String> wholeOrder = new ArrayList<>();
     int total = 0;
