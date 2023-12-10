@@ -8,9 +8,10 @@ public class Tables {
 
     Scanner sc=new Scanner(System.in);
 
-    public Tables() {
+    public Tables(int tableNumber) {
         this.tableStatus = TableStatus.FREE;
         this.tableOrder = new Order();
+        this.tableNumber = tableNumber;
     }
 
     public void takeOrder() {

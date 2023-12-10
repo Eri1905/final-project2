@@ -16,11 +16,4 @@ public class Order {
     public LocalDateTime getCreationDateTime() {
         return creationDateTime;
     }
-//    public LocalDateTime getCreationDateTime() {
-//        return creationDateTime;
-//    }
-//
-//    public void setCreationDateTime(LocalDateTime creationDateTime) {
-//        this.creationDateTime = creationDateTime;
-//    }
 }
