@@ -54,7 +54,6 @@ public class Waitress {
 
                 for (int i = 0; i < tables.length; i++) {
                     Tables table = new Tables();
-
                     tables[i] = table;
                 }
                 for (int i = 0; i < tables.length; i++) {
