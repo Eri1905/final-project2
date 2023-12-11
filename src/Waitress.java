@@ -2,11 +2,17 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Waitress {
+    public static final String ANSI_RESET = "\u001B[0m";
+
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_BLUE = "\033[0;34m";
     Scanner sc = new Scanner(System.in);
     int numtables;
     Tables[] tables;
@@ -133,6 +139,11 @@ public class Waitress {
     }
 
     private void showStarters() {
+        System.out.println(ANSI_YELLOW + " ,+.      ,=|=.     ,+.       ,-\"-. \n" +
+                "((|))    (XXXXX)   //|\\\\     / ,-. \\\n" +
+                " )|(      |   STARTERS ||    |(:::)|\n" +
+                "((|))     \\   /    \\\\|//     \\ `-' /\n" +
+                " `-'       `+'      `+'       `-.-'" + ANSI_RESET);
         try {
             Files.lines(path)
                     .filter(line -> line.contains("starters"))
@@ -143,6 +154,12 @@ public class Waitress {
     }
 
     private void showMainCourse() {
+        System.out.println( ANSI_RED +
+                "        _.:`.--|--.`:._\n" +
+                "     .: .'\\o  | o /'. '.\n" +
+                "    // '.  MAIN COURSES '.\\\n" +
+                "    //'._o'. \\ |o/ o_.-'o\\\\\n" +
+                "    || o '-.'.\\|/.-' o   ||" +  ANSI_RESET);
         try {
             Files.lines(path)
                     .filter(line -> line.contains("main"))
@@ -152,7 +169,14 @@ public class Waitress {
         }
     }
 
-    private void showDeserts() {
+    private void showDeserts() { //fix it for desserts
+        System.out.println( ANSI_YELLOW +
+                "         (\n" +
+                "          )\n" +
+                "     __..---..__\n" +
+                " ,-='  /  |  \\  `=-.\n" +
+                ":--.._DESSERTS_..--;\n" +
+                " \\.,_____________,./" + ANSI_RESET);
         try {
             Files.lines(path)
                     .filter(line -> line.contains("deserts"))
@@ -163,6 +187,12 @@ public class Waitress {
     }
 
     private void showDrinks() {
+        System.out.println(ANSI_BLUE +
+                " .-'---------|  \n" +
+                "( C|/\\/\\/\\/\\/|\n" +
+                " '-/\\ DRINKS |\n" +
+                "   '_________'\n" +
+                "    '-------'" + ANSI_RESET);
         try {
             Files.lines(path)
                     .filter(line -> line.contains("drinks"))
