@@ -19,7 +19,8 @@ public class Waitress {
         do {
             System.out.println("Please enter the number of the task you want to do: See the menu(1); " +
                     "Change the menu(2); " +
-                    "Take an order(3) ");
+                    "Take an order(3) +" +
+                    "Edit an order(4)");
             int numbersWaitress = sc.nextInt();
             switch (numbersWaitress) {
                 case 1:
@@ -57,6 +58,11 @@ public class Waitress {
                 case 3:
                     checkForFree(tables);
                     break;
+                case 4:
+                    for (int i = 0; i < tables.length; i++){
+                        tables[i].editOrder();
+                    }
+                    break;
             }
             keepGoing = goOn();
         }
@@ -80,7 +86,6 @@ public class Waitress {
         for (int i = 0; i < tables.length; i++) {
             Tables table = new Tables(i + 1);
             tables[i] = table;
-            System.out.println(table.tableNumber);
         }
         return tables;
     }
@@ -122,7 +127,7 @@ public class Waitress {
         List<String> lines = Files.readAllLines(path);
 
         List<String> updatedLines = lines.stream()
-                .filter(line -> !line.startsWith(elementToRemove))
+                .filter(line -> !line.contains(elementToRemove))
                 .collect(Collectors.toList());
         Files.write(path, updatedLines);
     }
