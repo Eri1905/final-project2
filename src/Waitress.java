@@ -96,7 +96,7 @@ public class Waitress {
         return tables;
     }
 
-    private void checkForFree(Tables[] tables) {
+    public void checkForFree(Tables[] tables) {
         for (int i = 0; i < tables.length; i++) {
             if (tables[i].tableStatus == TableStatus.FREE) {
                 tables[i].takeOrder();

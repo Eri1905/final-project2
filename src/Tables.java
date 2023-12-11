@@ -29,7 +29,7 @@ public class Tables {
         do {
             System.out.println("What do you want to order?");
             String dish = sc.next();
-            if (checkForAvailability(dish)){
+            if (checkForAvailabilityOfProduct(dish)){
             tableOrder.wholeOrder.add(dish);
             }
             System.out.println("Is this the whole order?");
@@ -54,6 +54,7 @@ public class Tables {
                     System.out.println("Enter the item you want to add: ");
                     String addItem =sc.next();
                     tableOrder.wholeOrder.add(addItem);
+                    addToOrder(addItem);
                     System.out.println("The food/drink is added successfully!");
                     break;
                 case 2:
@@ -66,6 +67,20 @@ public class Tables {
             }
         }
     }
+    private void addToOrder(String addedDish) {
+        try {
+            FileWriter fileWriter = new FileWriter(activeOrders.toFile(), true);
+
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            bufferedWriter.newLine();
+
+            bufferedWriter.write(addedDish);
+
+            bufferedWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     private void removeProductFromActiveOrder(String removeFromOrder) throws IOException {
         List<String> lines = Files.readAllLines(activeOrders);
         List<String> updatedLines = lines.stream()
@@ -73,7 +88,7 @@ public class Tables {
                 .collect(Collectors.toList());
         Files.write(activeOrders, updatedLines);
     }
-    private boolean checkForAvailability(String dishes) {
+    private boolean checkForAvailabilityOfProduct(String dishes) {
         boolean isProductAvailable=false;
         try (BufferedReader reader = new BufferedReader(new FileReader("src/menu.txt"))) {
             String line;
