@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Scanner;
+import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
 public class Tables {
@@ -22,7 +23,7 @@ public class Tables {
     }
 
     public void takeOrder() {
-        System.out.println("the table u work on rn" + tableNumber);
+        System.out.println("The table u work on rn " + tableNumber);
         Scanner sc = new Scanner(System.in);
         try {
             System.out.println("The date and time is(dd-MM-yyyy HH:mm:ss): ");
@@ -30,6 +31,7 @@ public class Tables {
             // System.out.println(tableOrder.creationDateTime); беше за да проверя дали е вярно, самото нещо е създадено в order
             String answer;
             do {
+                showMenu();
                 System.out.println("What do you want to order?");
                 String dish = sc.next();
                 if (checkForAvailabilityOfProduct(dish)) {
@@ -53,52 +55,100 @@ public class Tables {
     public void editOrder() throws IOException {
         if (tableOrder.orderStatus == OrderStatus.TAKEN) {
             System.out.println("Enter the number of the task you want to do: Add to order(1); Remove from order(2)");
-            int orderEditNum = sc.nextInt();
+            try{int orderEditNum = sc.nextInt();
             switch (orderEditNum) {
                 case 1:
                     System.out.println("Enter the item you want to add: ");
                     String addItem = sc.next();
                     boolean isProductAvailable = checkForAvailabilityOfProduct(addItem); //трябва ни, защото иначе прибавя неща не от менюто
-                    if (isProductAvailable == true) {
+                    if (isProductAvailable) {
                         tableOrder.wholeOrder.add(addItem);
-                        addToOrder(addItem);
+                        //addToOrder(addItem, editTableNumber);
+                        updateFileWithData();
                         System.out.println("The food/drink is added successfully!");
+                        System.out.println(tableOrder.wholeOrder);
                     }
                     break;
                 case 2:
                     System.out.println("Enter the item you want to remove: ");
                     String removeItem = sc.next();
                     tableOrder.wholeOrder.remove(removeItem);
-                    removeProductFromActiveOrder(removeItem);
+                    //removeProductFromActiveOrder(removeItem, editTableNumber);
+                    updateFileWithData();
                     System.out.println("The food/drink is removed successfully!");
+                    System.out.println(tableOrder.wholeOrder);
                     break;
+            }
+            }catch (Exception ex){
+                System.out.println("Invalid input!");
             }
         }
     }
 
-    private void addToOrder(String addedDish) { //направи го да провери за коя маса, и да добави
+    private void showMenu(){
+        String filePath = "src/menu.txt";
         try {
-            FileWriter fileWriter = new FileWriter(activeOrders.toFile(), true);
+            List<String> lines = Files.readAllLines(Paths.get(filePath));
 
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.newLine();
-
-            bufferedWriter.write(addedDish);
-
-            bufferedWriter.close();
+            for (String line : lines) {
+                System.out.println(line);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void removeProductFromActiveOrder(String removeFromOrder) throws IOException {  //направи го да провери за коя маса да маха
-        List<String> lines = Files.readAllLines(activeOrders);
-        List<String> updatedLines = lines.stream()
-                .filter(line -> !line.contains(removeFromOrder))
-                .collect(Collectors.toList());
-        Files.write(activeOrders, updatedLines);
+    public void changeStatusOfOrder(){
+        if (tableOrder.orderStatus.equals(OrderStatus.TAKEN)){
+            System.out.println("Enter the number of the status you want the order to change: Served(1); Paid(2)");
+            int changeStatusNums= sc.nextInt();
+            switch (changeStatusNums){
+                case 1:
+                    tableOrder.orderStatus=OrderStatus.SERVED;
+                case 2:
+                    tableOrder.orderStatus=OrderStatus.PAID;
+            }
+            if (tableOrder.orderStatus.equals(OrderStatus.PAID)){
+                calculateTotal();
+            }
+        }else {
+            System.out.println("The order is already in another status!");
+        }
     }
 
+    private void addToOrder(String addedDish, int tableNumber) { //направи го да провери за коя маса, и да добави
+        /*try {
+            List<String> lines = Files.readAllLines(activeOrders);
+            List<String> updatedLines = lines.stream()
+                    .map(line -> {
+                        if (line.startsWith("Table " + tableNumber + " order:")) {
+                            return line + ", " + addedDish;
+                        }
+                        return line;
+                    })
+                    .collect(Collectors.toList());
+
+            Files.write(activeOrders, updatedLines);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+
+    }
+
+    private void removeProductFromActiveOrder(String removeFromOrder, int tableNumber) throws IOException {  //направи го да провери за коя маса да маха
+        /*if (Files.exists(activeOrders)) {
+            List<String> lines = Files.readAllLines(activeOrders);
+            List<String> updatedLines = lines.stream()
+                    .map(line -> {
+                        if (line.startsWith("Table " + tableNumber + " order:") && line.contains(removeFromOrder)) {
+                            return line.replace(removeFromOrder, "").trim();
+                        }
+                        return line;
+                    })
+                    .collect(Collectors.toList());
+            Files.write(activeOrders, updatedLines);
+        }*/
+    }
     private boolean checkForAvailabilityOfProduct(String dishes) {
         boolean isProductAvailable = false;
         try (BufferedReader reader = new BufferedReader(new FileReader("src/menu.txt"))) {
@@ -143,20 +193,44 @@ public class Tables {
             System.err.println("Error reading the file: " + e.getMessage());
         }
     }
-    public void writeActiveOrdersToFile() {
-        //пише за всички маси
-        String fileName = "src/activeOrders.txt";
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
-            writer.write("Table " + tableNumber + " оrders:");
+    private void updateFileWithData() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(activeOrders.toFile(), true))) {
+            writer.write("Table " + tableNumber + " orders: ");
             writer.newLine();
-            for (String orderedProducts : tableOrder.wholeOrder) {
-                writer.write(orderedProducts);
+            for (String data : tableOrder.wholeOrder) {
+                writer.write(data);
                 writer.newLine();
             }
             writer.newLine();
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+        }
+        public void writeActiveOrdersToFile() {
+        //пише за всички маси
+        /*String fileName = "src/activeOrders.txt";
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, false))) {
+            writer.write("Table " + tableNumber + " оrders: ");
+
+            StringJoiner joiner = new StringJoiner(", ");
+            for (String orderedProduct : tableOrder.wholeOrder) {
+                joiner.add(orderedProduct);
+            }
+            writer.write(joiner.toString());
+            writer.newLine();
+        } catch (IOException e) {
             System.err.println("Error writing to the file: " + e.getMessage());
+        }*/
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(activeOrders.toFile(),true))) {
+            writer.write("Table "+tableNumber+" orders: ");
+            writer.newLine();
+            for (String data : tableOrder.wholeOrder) {
+                writer.write(data);
+                writer.newLine();
+            }
+            writer.newLine();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
-
 }

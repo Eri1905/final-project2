@@ -24,7 +24,7 @@ public class Main {
             case 1: Waitress waitress=new Waitress();
                 waitress.work();
             case 2: Chef chef=new Chef();
+                chef.work();
         }
-
     }
     }

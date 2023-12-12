@@ -15,22 +15,20 @@ public class Waitress {
     public static final String ANSI_BLUE = "\033[0;34m";
     Scanner sc = new Scanner(System.in);
     int tableNum;
-    int tableQuantity;
     Tables[] tables;
-    String fileName;
     Path path = Paths.get("src/menu.txt");
 
     boolean keepGoing = true;
 
     public void work() throws IOException {
-        //tables = createTables();
-        createTables();
+        tables = createTables();
         do {
             System.out.println("Please enter the number of the task you want to do: See the menu(1); " +
                     "Change the menu(2); " +
-                    "Take an order(3) +" +
-                    "Edit an order(4)");
-            int numbersWaitress = sc.nextInt();
+                    "Take an order(3); " +
+                    "Edit an order(4); "+
+                    "Change the status of the order(5)");
+            try{int numbersWaitress = sc.nextInt();
             switch (numbersWaitress) {
                 case 1:
                     System.out.println("Please enter the number of the type you want to see: Starters(1); Main course(2); Deserts(3); Drinks(4)");
@@ -68,10 +66,16 @@ public class Waitress {
                     checkForFree(tables);
                     break;
                 case 4:
-                    for (int i = 0; i < tables.length; i++) {
-                        tables[i].editOrder();
-                    }
-                    break;
+                    System.out.println("Please enter the number of the table you want to edit the order: ");
+                    int editOrderNum = sc.nextInt();
+                    tables[editOrderNum - 1].editOrder();
+                case 5:
+                    System.out.println("Please enter the number of the table you want to change the status of the order: ");
+                    int changeStatus= sc.nextInt();
+                    tables[changeStatus-1].changeStatusOfOrder();
+            }
+            }catch (Exception ex){
+                System.out.println("Invalid input!");
             }
             keepGoing = goOn();
         }
@@ -112,7 +116,6 @@ public class Waitress {
             e.printStackTrace();
         }
     }*/
-
 
     public void checkForFree(Tables[] tables) {
         //въвежда се номера на масата, проверяваме дали е свободна, ако не е, отива на най-близката свободна, ако няма свободна, излиза съобщение
