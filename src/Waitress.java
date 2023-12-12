@@ -14,14 +14,17 @@ public class Waitress {
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_BLUE = "\033[0;34m";
     Scanner sc = new Scanner(System.in);
-    int numtables;
+    int tableNum;
+    int tableQuantity;
     Tables[] tables;
+    String fileName;
     Path path = Paths.get("src/menu.txt");
 
     boolean keepGoing = true;
 
     public void work() throws IOException {
-        tables = createTables();
+        //tables = createTables();
+        createTables();
         do {
             System.out.println("Please enter the number of the task you want to do: See the menu(1); " +
                     "Change the menu(2); " +
@@ -86,8 +89,8 @@ public class Waitress {
 
     private Tables[] createTables() {
         System.out.println("Please enter the quantity of tables you serve: ");
-        numtables = sc.nextInt();
-        Tables[] tables = new Tables[numtables];
+        tableNum = sc.nextInt();
+        Tables[] tables = new Tables[tableNum];
 
         for (int i = 0; i < tables.length; i++) {
             Tables table = new Tables(i + 1);
@@ -95,6 +98,21 @@ public class Waitress {
         }
         return tables;
     }
+    /*private void createTables(){
+        tableQuantity=sc.nextInt();
+            for (int i = 1; i <= tableQuantity; i++) {
+                fileName = "orderTable" + i + ".txt";
+            }
+        }
+    private void writeToFile(String fileName) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(fileName))) {
+            writer.write("Table ");
+            writer.println(content);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }*/
+
 
     public void checkForFree(Tables[] tables) {
         for (int i = 0; i < tables.length; i++) {
