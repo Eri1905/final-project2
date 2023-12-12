@@ -65,7 +65,7 @@ public class Waitress {
                     checkForFree(tables);
                     break;
                 case 4:
-                    for (int i = 0; i < tables.length; i++){
+                    for (int i = 0; i < tables.length; i++) {
                         tables[i].editOrder();
                     }
                     break;
@@ -97,15 +97,32 @@ public class Waitress {
     }
 
     public void checkForFree(Tables[] tables) {
-        for (int i = 0; i < tables.length; i++) {
-            if (tables[i].tableStatus == TableStatus.FREE) {
-                tables[i].takeOrder();
-                break;
-            } else {
-                System.out.println("There is no free tables!");
-            }
+        //въвежда се номера на масата, проверяваме дали е свободна, ако не е, отива на най-близката свободна, ако няма свободна, излиза съобщение
+        boolean allTablesTaken = true;
+        System.out.println("Enter the number of the table: ");
+        int currentTableNumber = sc.nextInt();
+        if(tables[currentTableNumber - 1].tableStatus == TableStatus.FREE){
+            System.out.println("Table number" + currentTableNumber + "is free");
+            tables[currentTableNumber - 1].takeOrder();
+            allTablesTaken = false;
+        }
+        else {
+            System.out.println("This table is already taken.");
+            for (int i = 0; i < tables.length; i++) {
+                if (tables[i].tableStatus == TableStatus.FREE) {
+                    currentTableNumber = i+1;
+                    System.out.println("You are working on table " + currentTableNumber);
+                    allTablesTaken = false;
+                    tables[i].takeOrder();
+                    break;
+                }
+        }
+        }
+        if (allTablesTaken == true) {
+            System.out.println("I am sorry, there is no empty table");
         }
     }
+
 
     private void addToMenu() {
         Scanner sc = new Scanner(System.in);
@@ -154,12 +171,12 @@ public class Waitress {
     }
 
     private void showMainCourse() {
-        System.out.println( ANSI_RED +
+        System.out.println(ANSI_RED +
                 "        _.:`.--|--.`:._\n" +
                 "     .: .'\\o  | o /'. '.\n" +
                 "    // '.  MAIN COURSES '.\\\n" +
                 "    //'._o'. \\ |o/ o_.-'o\\\\\n" +
-                "    || o '-.'.\\|/.-' o   ||" +  ANSI_RESET);
+                "    || o '-.'.\\|/.-' o   ||" + ANSI_RESET);
         try {
             Files.lines(path)
                     .filter(line -> line.contains("main"))
@@ -170,7 +187,7 @@ public class Waitress {
     }
 
     private void showDeserts() { //fix it for desserts
-        System.out.println( ANSI_YELLOW +
+        System.out.println(ANSI_YELLOW +
                 "         (\n" +
                 "          )\n" +
                 "     __..---..__\n" +
