@@ -133,7 +133,8 @@ public class Waitress {
         System.out.println("Enter the number of the table: ");
         int currentTableNumber = sc.nextInt();
         if(tables[currentTableNumber - 1].tableStatus == TableStatus.FREE){
-            System.out.println("Table number" + currentTableNumber + "is free");
+            System.out.println("Table number " + currentTableNumber + " is free");
+            System.out.println("You are working on table " + currentTableNumber);
             tables[currentTableNumber - 1].takeOrder();
             allTablesTaken = false;
         }
