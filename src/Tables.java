@@ -23,7 +23,6 @@ public class Tables {
     }
 
     public void takeOrder() {
-        System.out.println("The table u work on rn " + tableNumber);
         Scanner sc = new Scanner(System.in);
         try {
             System.out.println("The date and time is(dd-MM-yyyy HH:mm:ss): ");
@@ -149,7 +148,7 @@ public class Tables {
             Files.write(activeOrders, updatedLines);
         }*/
     }
-    private boolean checkForAvailabilityOfProduct(String dishes) {
+    public boolean checkForAvailabilityOfProduct(String dishes) {
         boolean isProductAvailable = false;
         try (BufferedReader reader = new BufferedReader(new FileReader("src/menu.txt"))) {
             String line;
