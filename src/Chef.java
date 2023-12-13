@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Chef {
-    Scanner sc=new Scanner(System.in);
-    Order order;
-    boolean keepGoing = true;
+    public Scanner sc=new Scanner(System.in);
+    public Order order;
+    public boolean keepGoing = true;
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String PURPLE_BOLD = "\033[1;35m";
     private void changeOrderStatus() {

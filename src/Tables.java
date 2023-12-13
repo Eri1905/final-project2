@@ -8,13 +8,13 @@ import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
 public class Tables {
-    Order tableOrder;
-    int tableNumber;
-    TableStatus tableStatus;
-    String[] words;
+    public Order tableOrder;
+    public int tableNumber;
+    public TableStatus tableStatus;
+    public String[] words;
     //boolean isProductAvailable=false;
-    Scanner sc = new Scanner(System.in);
-    Path activeOrders = Paths.get("src/activeOrders.txt");
+    public Scanner sc = new Scanner(System.in);
+    public Path activeOrders = Paths.get("src/activeOrders.txt");
 
 
     public TableStatus getTableStatus() {
