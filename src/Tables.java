@@ -30,8 +30,8 @@ public class Tables {
             tableOrder.setCreationDateTimeFromString(sc.nextLine());
             // System.out.println(tableOrder.creationDateTime); беше за да проверя дали е вярно, самото нещо е създадено в order
             String answer;
-            showMenu();
             do {
+                showMenu();
                 System.out.println("What do you want to order?");
                 String dish = sc.next();
                 if (checkForAvailabilityOfProduct(dish)) {
@@ -52,7 +52,7 @@ public class Tables {
         //  writeActiveOrdersToFile();
     }
 
-    public void editOrder() {
+    public void editOrder() throws IOException {
         if (tableOrder.orderStatus == OrderStatus.TAKEN) {
             System.out.println("Enter the number of the task you want to do: Add to order(1); Remove from order(2)");
             try{int orderEditNum = sc.nextInt();
@@ -104,9 +104,9 @@ public class Tables {
             int changeStatusNums= sc.nextInt();
             switch (changeStatusNums){
                 case 1:
-                    tableOrder.orderStatus=OrderStatus.SERVED;
+                    tableOrder.orderStatus=OrderStatus.SERVED; break;
                 case 2:
-                    tableOrder.orderStatus=OrderStatus.PAID;
+                    tableOrder.orderStatus=OrderStatus.PAID; break;
             }
             if (tableOrder.orderStatus.equals(OrderStatus.PAID)){
                 calculateTotal();
@@ -172,6 +172,7 @@ public class Tables {
     }
 
     public void calculateTotal() { //what do we have to add?
+       // takeOrder();
         String name;
         int price;
         try (BufferedReader reader = new BufferedReader(new FileReader("src/menu.txt"))) {

@@ -2,11 +2,11 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
+    static Scanner sc=new Scanner(System.in);
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String PURPLE_BOLD = "\033[1;35m";
 
     public static void main(String[] args) throws IOException {
-        Scanner sc=new Scanner(System.in);
         System.out.println(PURPLE_BOLD  +
                 "     .\n" +
                 "    . .\n" +
@@ -22,9 +22,9 @@ public class Main {
         int num=sc.nextInt();
     switch (num){
             case 1: Waitress waitress=new Waitress();
-                waitress.work();
+                waitress.work(); break;
             case 2: Chef chef=new Chef();
-                chef.work();
+                chef.work();break;
         }
     }
     }

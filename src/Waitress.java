@@ -8,6 +8,7 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Waitress {
+    public static final String PURPLE_BOLD = "\033[1;35m";
     public static final String ANSI_RESET = "\u001B[0m";
 
     public static final String ANSI_YELLOW = "\u001B[33m";
@@ -28,7 +29,8 @@ public class Waitress {
                     "Take an order(3); " +
                     "Edit an order(4); "+
                     "Change the status of the order(5)");
-            try{int numbersWaitress = sc.nextInt();
+            try{
+                int numbersWaitress = sc.nextInt();
             switch (numbersWaitress) {
                 case 1:
                     System.out.println("Please enter the number of the type you want to see: Starters(1); Main course(2); Deserts(3); Drinks(4)");
@@ -69,10 +71,12 @@ public class Waitress {
                     System.out.println("Please enter the number of the table you want to edit the order: ");
                     int editOrderNum = sc.nextInt();
                     tables[editOrderNum - 1].editOrder();
+                    break;
                 case 5:
                     System.out.println("Please enter the number of the table you want to change the status of the order: ");
                     int changeStatus= sc.nextInt();
                     tables[changeStatus-1].changeStatusOfOrder();
+                    break;
             }
             }catch (Exception ex){
                 System.out.println("Invalid input!");
@@ -87,6 +91,16 @@ public class Waitress {
         String answerGoOn = sc.next();
         if (answerGoOn.equalsIgnoreCase("no")) {
             keepGoing = false;
+            System.out.println(PURPLE_BOLD + "     .\n" +
+                    "    . .\n" +
+                    "      ...\n" +
+                    "   \\~~~~~/\n" +
+                    "    \\   /\n" +
+                    " G O O D B Y E" +
+                    "      \n" +
+                    "      |\n" +
+                    "      |\n" +
+                    "     ---" + ANSI_RESET);
         }
         return keepGoing;
     }
