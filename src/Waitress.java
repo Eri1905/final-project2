@@ -24,6 +24,9 @@ public class Waitress {
         this.sc = sc;
     }
 
+
+
+
     public void work() throws IOException {
         System.out.println("Please enter the quantity of tables you serve: ");
         tables = createTables();

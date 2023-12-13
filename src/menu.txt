@@ -1,9 +1,12 @@
-Shopska salad,9,starters
 Kebapche,2,main
 Meatballs,3,main
-Chicken wings,8,main
 Coke,3,drinks
 Ayran,2,drinks
 Water,1,drinks
 Tarator,3,starters
-juice,2,drinks
+Juice,2,drinks
+Pizza,10,main
+Burger,9,main
+Beer,4,drinks
+Rakija,3,drinks
+Whisky,5,drinks
