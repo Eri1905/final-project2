@@ -30,8 +30,8 @@ public class Tables {
             tableOrder.setCreationDateTimeFromString(sc.nextLine());
             // System.out.println(tableOrder.creationDateTime); беше за да проверя дали е вярно, самото нещо е създадено в order
             String answer;
+            showMenu();
             do {
-                showMenu();
                 System.out.println("What do you want to order?");
                 String dish = sc.next();
                 if (checkForAvailabilityOfProduct(dish)) {
@@ -63,7 +63,6 @@ public class Tables {
                     boolean isProductAvailable = checkForAvailabilityOfProduct(addItem); //трябва ни, защото иначе прибавя неща не от менюто
                     if (isProductAvailable) {
                         tableOrder.wholeOrder.add(addItem);
-                        //addToOrder(addItem, editTableNumber);
                         updateFileWithData();
                         System.out.println("The food/drink is added successfully!");
                         System.out.println(tableOrder.wholeOrder);
@@ -73,7 +72,6 @@ public class Tables {
                     System.out.println("Enter the item you want to remove: ");
                     String removeItem = sc.next();
                     tableOrder.wholeOrder.remove(removeItem);
-                    //removeProductFromActiveOrder(removeItem, editTableNumber);
                     updateFileWithData();
                     System.out.println("The food/drink is removed successfully!");
                     System.out.println(tableOrder.wholeOrder);
@@ -100,16 +98,18 @@ public class Tables {
 
     public void changeStatusOfOrder(){
         if (tableOrder.orderStatus.equals(OrderStatus.TAKEN)){
-            System.out.println("Enter the number of the status you want the order to change: Served(1); Paid(2)");
+            System.out.println("Enter the number of the status you want the order to change: Served(1); Preparing(2); Ready(3)");
             int changeStatusNums= sc.nextInt();
             switch (changeStatusNums){
                 case 1:
-                    tableOrder.orderStatus=OrderStatus.SERVED; break;
+                    tableOrder.orderStatus=OrderStatus.SERVED;
+                    break;
                 case 2:
-                    tableOrder.orderStatus=OrderStatus.PAID; break;
-            }
-            if (tableOrder.orderStatus.equals(OrderStatus.PAID)){
-                calculateTotal();
+                    tableOrder.orderStatus=OrderStatus.PREPARING;
+                    break;
+                case 3:
+                    tableOrder.orderStatus=OrderStatus.READY;
+                    break;
             }
         }else {
             System.out.println("The order is already in another status!");
@@ -171,7 +171,7 @@ public class Tables {
         return isProductAvailable;
     }
 
-    public void calculateTotal() { //what do we have to add?
+    public void calculateTotal() {
        // takeOrder();
         String name;
         int price;
@@ -187,8 +187,9 @@ public class Tables {
                         break;
                     }
                 }
-                System.out.println(tableOrder.total);
             }
+            System.out.println(tableOrder.total);
+            tableOrder.orderStatus=OrderStatus.PAID;
         } catch (IOException e) {
             System.err.println("Error reading the file: " + e.getMessage());
         }

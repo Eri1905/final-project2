@@ -28,7 +28,8 @@ public class Waitress {
                     "Change the menu(2); " +
                     "Take an order(3); " +
                     "Edit an order(4); "+
-                    "Change the status of the order(5)");
+                    "Calculate total(5); "+
+                    "Change the status of the order(6)");
             try{
                 int numbersWaitress = sc.nextInt();
             switch (numbersWaitress) {
@@ -73,6 +74,11 @@ public class Waitress {
                     tables[editOrderNum - 1].editOrder();
                     break;
                 case 5:
+                    System.out.println("Please enter the number of the table you want to see the total: ");
+                    int sumTable=sc.nextInt();
+                    tables[sumTable-1].calculateTotal();
+                    break;
+                case 6:
                     System.out.println("Please enter the number of the table you want to change the status of the order: ");
                     int changeStatus= sc.nextInt();
                     tables[changeStatus-1].changeStatusOfOrder();

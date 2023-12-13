@@ -18,8 +18,10 @@ public class Chef {
                 switch (statusNums) {
                     case 1:
                         order.orderStatus = OrderStatus.PREPARING;
+                        break;
                     case 2:
                         order.orderStatus = OrderStatus.READY;
+                        break;
                 }
             } catch (Exception ex) {
                 System.out.println("Invalid input!");
