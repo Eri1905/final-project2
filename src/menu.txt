@@ -6,3 +6,4 @@ Coke,3,drinks
 Ayran,2,drinks
 Water,1,drinks
 Tarator,3,starters
+juice,2,drinks

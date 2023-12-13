@@ -1,2 +1,27 @@
 
 
+Table 1 orders: 
+juice
+
+Table 1 orders: 
+juice
+coke
+
+Table 2 orders: 
+tarator
+
+Table 2 orders: 
+juice
+
+Table 1 orders: 
+juice
+
+Table 1 orders: 
+coke
+
+Table 1 orders: 
+water
+
+Table 1 orders: 
+water
+

@@ -104,9 +104,9 @@ public class Tables {
             int changeStatusNums= sc.nextInt();
             switch (changeStatusNums){
                 case 1:
-                    tableOrder.orderStatus=OrderStatus.SERVED;
+                    tableOrder.orderStatus=OrderStatus.SERVED; break;
                 case 2:
-                    tableOrder.orderStatus=OrderStatus.PAID;
+                    tableOrder.orderStatus=OrderStatus.PAID; break;
             }
             if (tableOrder.orderStatus.equals(OrderStatus.PAID)){
                 calculateTotal();
@@ -172,7 +172,7 @@ public class Tables {
     }
 
     public void calculateTotal() { //what do we have to add?
-        takeOrder();
+       // takeOrder();
         String name;
         int price;
         try (BufferedReader reader = new BufferedReader(new FileReader("src/menu.txt"))) {
