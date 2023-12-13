@@ -20,44 +20,8 @@ public class Waitress {
 
     boolean keepGoing = true;
 
-    public Scanner getSc() {
-        return sc;
-    }
-
     public void setSc(Scanner sc) {
         this.sc = sc;
-    }
-
-    public int getTableNum() {
-        return tableNum;
-    }
-
-    public void setTableNum(int tableNum) {
-        this.tableNum = tableNum;
-    }
-
-    public Tables[] getTables() {
-        return tables;
-    }
-
-    public void setTables(Tables[] tables) {
-        this.tables = tables;
-    }
-
-    public Path getPath() {
-        return path;
-    }
-
-    public void setPath(Path path) {
-        this.path = path;
-    }
-
-    public boolean isKeepGoing() {
-        return keepGoing;
-    }
-
-    public void setKeepGoing(boolean keepGoing) {
-        this.keepGoing = keepGoing;
     }
 
     public void work() throws IOException {
@@ -132,7 +96,7 @@ public class Waitress {
         while (keepGoing == true);
     }
 
-    private boolean goOn() {
+    public boolean goOn() {
         System.out.println("Do you want to keep going?");
         String answerGoOn = sc.next();
         if (answerGoOn.equalsIgnoreCase("no")) {
@@ -191,7 +155,7 @@ public class Waitress {
     }
 
 
-    private void addToMenu() {
+    public void addToMenu() {
         Scanner sc = new Scanner(System.in);
         String addedDish = sc.next();
         try {
