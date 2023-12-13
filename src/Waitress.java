@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 public class Waitress {
     public static final String PURPLE_BOLD = "\033[1;35m";
     public static final String ANSI_RESET = "\u001B[0m";
-
     public static final String ANSI_YELLOW = "\u001B[33m";
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_BLUE = "\033[0;34m";
@@ -21,7 +20,48 @@ public class Waitress {
 
     boolean keepGoing = true;
 
+    public Scanner getSc() {
+        return sc;
+    }
+
+    public void setSc(Scanner sc) {
+        this.sc = sc;
+    }
+
+    public int getTableNum() {
+        return tableNum;
+    }
+
+    public void setTableNum(int tableNum) {
+        this.tableNum = tableNum;
+    }
+
+    public Tables[] getTables() {
+        return tables;
+    }
+
+    public void setTables(Tables[] tables) {
+        this.tables = tables;
+    }
+
+    public Path getPath() {
+        return path;
+    }
+
+    public void setPath(Path path) {
+        this.path = path;
+    }
+
+    public boolean isKeepGoing() {
+        return keepGoing;
+    }
+
+    public void setKeepGoing(boolean keepGoing) {
+        this.keepGoing = keepGoing;
+    }
+
     public void work() throws IOException {
+        System.out.println("Please enter the quantity of tables you serve: ");
         tables = createTables();
         do {
             System.out.println("Please enter the number of the task you want to do: See the menu(1); " +
@@ -111,8 +151,7 @@ public class Waitress {
         return keepGoing;
     }
 
-    private Tables[] createTables() {
-        System.out.println("Please enter the quantity of tables you serve: ");
+    public Tables[] createTables() {
         tableNum = sc.nextInt();
         Tables[] tables = new Tables[tableNum];
 
@@ -122,20 +161,7 @@ public class Waitress {
         }
         return tables;
     }
-    /*private void createTables(){
-        tableQuantity=sc.nextInt();
-            for (int i = 1; i <= tableQuantity; i++) {
-                fileName = "orderTable" + i + ".txt";
-            }
-        }
-    private void writeToFile(String fileName) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(fileName))) {
-            writer.write("Table ");
-            writer.println(content);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
+
 
     public void checkForFree(Tables[] tables) {
         //въвежда се номера на масата, проверяваме дали е свободна, ако не е, отива на най-близката свободна, ако няма свободна, излиза съобщение
