@@ -3,11 +3,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Order {
-     LocalDateTime creationDateTime;
-     static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-    OrderStatus orderStatus;
-    ArrayList<String> wholeOrder = new ArrayList<>();
-    int total = 0;
+     public LocalDateTime creationDateTime;
+    public static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+   public OrderStatus orderStatus;
+   public ArrayList<String> wholeOrder = new ArrayList<>();
+   public int total = 0;
 
     public void setCreationDateTimeFromString(String dateTimeString) {
         this.creationDateTime = LocalDateTime.parse(dateTimeString, formatter);
