@@ -14,11 +14,10 @@ public class Waitress {
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_BLUE = "\033[0;34m";
     Scanner sc = new Scanner(System.in);
-    int tableNum;
-    Tables[] tables;
-    Path path = Paths.get("src/menu.txt");
-
-    boolean keepGoing = true;
+   public int tableNum;
+   public Tables[] tables;
+   public Path path = Paths.get("src/menu.txt");
+   public boolean keepGoing = true;
 
     public void setSc(Scanner sc) {
         this.sc = sc;
